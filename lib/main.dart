@@ -1,6 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:engineering_toolbox/homepage.dart';
+import 'package:engineering_toolkit/homepage.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +19,7 @@ class MyApp extends StatefulWidget {
   @override
   State<MyApp> createState() => _MyAppState();
 }
- 
+
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
@@ -28,8 +29,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return AdaptiveTheme(
-      light: ThemeData.light(useMaterial3: true),
-      dark: ThemeData.dark(useMaterial3: true),
+      light: ThemeData.light(useMaterial3: true)
+          .copyWith(textTheme: GoogleFonts.andikaTextTheme()),
+      dark: ThemeData.dark(useMaterial3: true)
+          .copyWith(textTheme: GoogleFonts.andikaTextTheme()),
       initial: widget.savedThemeMode ?? AdaptiveThemeMode.system,
       builder: (theme, darkTheme) => MaterialApp(
         debugShowCheckedModeBanner: false,

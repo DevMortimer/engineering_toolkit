@@ -1,4 +1,4 @@
-import 'package:engineering_toolbox/references/materialPropertiesModel.dart';
+import 'package:engineering_toolkit/references/materialPropertiesModel.dart';
 import 'package:flutter/material.dart';
 import 'package:table_sticky_headers/table_sticky_headers.dart';
 

@@ -1,11 +1,12 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:engineering_toolbox/calculators/bandwidthPage.dart';
-import 'package:engineering_toolbox/calculators/resistorPage.dart';
-import 'package:engineering_toolbox/calculators/slewRatePage.dart';
-import 'package:engineering_toolbox/calculators/unitConverterPage.dart';
-import 'package:engineering_toolbox/components/menubutton.dart';
-import 'package:engineering_toolbox/references/materialPropertiesPage.dart';
+import 'package:engineering_toolkit/calculators/bandwidthPage.dart';
+import 'package:engineering_toolkit/calculators/resistorPage.dart';
+import 'package:engineering_toolkit/calculators/slewRatePage.dart';
+import 'package:engineering_toolkit/calculators/unitConverterPage.dart';
+import 'package:engineering_toolkit/components/menubutton.dart';
+import 'package:engineering_toolkit/references/materialPropertiesPage.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
@@ -16,7 +17,18 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Engineering Toolbox'),
+        title: Text(
+          'ENGINEERING\nTOOLKIT',
+          style: TextStyle(
+            fontSize: 25,
+            fontWeight: FontWeight.w900,
+            color: Color(
+              Theme.of(context).brightness == Brightness.dark
+                  ? 0xFF40DFAF
+                  : 0xFF000000,
+            ),
+          ),
+        ),
         actions: [
           IconButton(
             icon: Theme.of(context).brightness == Brightness.dark
@@ -39,102 +51,123 @@ class HomePage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // References
-                const Text(
-                  'References',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                ),
-                GridView.count(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  primary: false,
-                  padding: const EdgeInsets.all(20),
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  crossAxisCount: 2,
-                  children: [
-                    MenuButton(
-                      child: const Text('Mixed Signals Formulas'),
-                      onPressed: () {},
-                    ),
-                    MenuButton(
-                      child: const Text('Material Properties'),
-                      onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const MaterialPropertiesPage(),
-                        ),
-                      ),
-                    ),
-                    MenuButton(
-                      child: const Text('Electrical Engineering Formulas'),
-                      onPressed: () {},
-                    ),
-                    MenuButton(
-                      child: const Text('Civil Engineering Formulas'),
-                      onPressed: () {},
-                    ),
-                    MenuButton(
-                      child: const Text('Chemical Engineering Formulas'),
-                      onPressed: () {},
-                    ),
-                  ],
-                ),
+                const SizedBox(height: 18),
 
                 // Calculators
-                const Text(
+                Text(
                   'Calculators',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  style: GoogleFonts.arimo(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? const Color(0xFFFFFFFF)
+                        : const Color(0xFF000000),
+                  ),
                 ),
-                GridView.count(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  primary: false,
-                  padding: const EdgeInsets.all(20),
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  crossAxisCount: 2,
-                  children: [
-                    MenuButton(
-                      child: const Text('Unit Converter'),
-                      onPressed: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const UnitConverterPage(),
+                Center(
+                  child: Wrap(
+                    runSpacing: 10,
+                    spacing: 10,
+                    alignment: WrapAlignment.center,
+                    children: [
+                      MenuButton(
+                        label: 'Unit\nConverter',
+                        onPressed: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const UnitConverterPage(),
+                          ),
                         ),
+                        child: Image.asset('assets/convert.png'),
                       ),
-                    ),
-                    MenuButton(
-                      child: const Text('Resistor Color'),
-                      onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ResistorPage(),
+                      MenuButton(
+                        label: 'Resistor\nColor',
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ResistorPage(),
+                          ),
                         ),
+                        child: Image.asset('assets/resistor.png'),
                       ),
-                    ),
-                    MenuButton(
-                      child: const Text('Op-amp Bandwidth'),
-                      onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const BandwidthPage(),
+                      MenuButton(
+                        label: 'Op-amp\nBandwidth',
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const BandwidthPage(),
+                          ),
                         ),
+                        child: Image.asset('assets/opamp.png'),
                       ),
-                    ),
-                    MenuButton(
-                      child: const Text('Slew Rate'),
-                      onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const SlewRatePage(),
+                      MenuButton(
+                        label: 'Slew\nRate',
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SlewRatePage(),
+                          ),
                         ),
+                        child: Image.asset('assets/slew.png'),
                       ),
-                    ),
-                    MenuButton(
-                      child: const Text('Voltage, Current, Resistance'),
-                      onPressed: () {},
-                    ),
-                  ],
+                      MenuButton(
+                        label: 'Voltage,\nCurrent,\nResistance',
+                        onPressed: () {},
+                        child: Image.asset('assets/vcr.png'),
+                      ),
+                    ],
+                  ),
+                ),
+
+                // References
+                Text(
+                  'References',
+                  style: GoogleFonts.arimo(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? const Color(0xFFFFFFFF)
+                        : const Color(0xFF000000),
+                  ),
+                ),
+                Center(
+                  child: Wrap(
+                    runSpacing: 10,
+                    spacing: 10,
+                    alignment: WrapAlignment.center,
+                    children: [
+                      MenuButton(
+                        label: 'Mixed\nSignals\nFormulas',
+                        onPressed: () {},
+                        child: Image.asset('assets/signal.png'),
+                      ),
+                      MenuButton(
+                        label: 'Material\nProperties',
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const MaterialPropertiesPage(),
+                          ),
+                        ),
+                        child: Image.asset('assets/material.png'),
+                      ),
+                      MenuButton(
+                        label: 'Electrical\nEngineering\nFormulas',
+                        onPressed: () {},
+                        child: Image.asset('assets/chemical.png'),
+                      ),
+                      MenuButton(
+                        label: 'Civil\nEngineering\nFormulas',
+                        onPressed: () {},
+                        child: Image.asset('assets/civil-engineering.png'),
+                      ),
+                      MenuButton(
+                        label: 'Chemical\nEngineering\nFormulas',
+                        onPressed: () {},
+                        child: Image.asset('assets/electrical.png'),
+                      ),
+                    ],
+                  ),
                 ),
 
                 // Padding at the bottom (for scrolling)
