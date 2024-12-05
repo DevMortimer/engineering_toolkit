@@ -5,7 +5,11 @@ import 'package:engineering_toolkit/calculators/slewRatePage.dart';
 import 'package:engineering_toolkit/calculators/unitConverterPage.dart';
 import 'package:engineering_toolkit/calculators/voltageCurrentResistancePage.dart';
 import 'package:engineering_toolkit/components/menubutton.dart';
+import 'package:engineering_toolkit/references/chemicalEngineering.dart';
+import 'package:engineering_toolkit/references/civilEngineering.dart';
+import 'package:engineering_toolkit/references/electricalEngineering.dart';
 import 'package:engineering_toolkit/references/materialPropertiesPage.dart';
+import 'package:engineering_toolkit/references/mixedSignalsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -143,7 +147,12 @@ class HomePage extends StatelessWidget {
                     children: [
                       MenuButton(
                         label: 'Mixed\nSignals\nFormulas',
-                        onPressed: () {},
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MixedSignalsPage(),
+                          ),
+                        ),
                         child: Image.asset('assets/signal.png'),
                       ),
                       MenuButton(
@@ -159,17 +168,34 @@ class HomePage extends StatelessWidget {
                       ),
                       MenuButton(
                         label: 'Electrical\nEngineering\nFormulas',
-                        onPressed: () {},
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const ElectricalEngineeringPage(),
+                          ),
+                        ),
                         child: Image.asset('assets/chemical.png'),
                       ),
                       MenuButton(
                         label: 'Civil\nEngineering\nFormulas',
-                        onPressed: () {},
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const CivilEngineeringPage(),
+                          ),
+                        ),
                         child: Image.asset('assets/civil-engineering.png'),
                       ),
                       MenuButton(
                         label: 'Chemical\nEngineering\nFormulas',
-                        onPressed: () {},
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const ChemicalEngineeringPage(),
+                          ),
+                        ),
                         child: Image.asset('assets/electrical.png'),
                       ),
                     ],
