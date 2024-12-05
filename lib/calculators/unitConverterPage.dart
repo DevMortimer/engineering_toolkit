@@ -320,6 +320,11 @@ class _UnitConverterPageState extends State<UnitConverterPage> {
                       : [],
                   textInputAction: TextInputAction.done,
                   onChanged: onValueChanged,
+                  style: TextStyle(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
+                  ),
                 ),
               ),
               Padding(
