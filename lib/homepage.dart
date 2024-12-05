@@ -3,6 +3,7 @@ import 'package:engineering_toolkit/calculators/bandwidthPage.dart';
 import 'package:engineering_toolkit/calculators/resistorPage.dart';
 import 'package:engineering_toolkit/calculators/slewRatePage.dart';
 import 'package:engineering_toolkit/calculators/unitConverterPage.dart';
+import 'package:engineering_toolkit/calculators/voltageCurrentResistancePage.dart';
 import 'package:engineering_toolkit/components/menubutton.dart';
 import 'package:engineering_toolkit/references/materialPropertiesPage.dart';
 import 'package:flutter/material.dart';
@@ -111,7 +112,12 @@ class HomePage extends StatelessWidget {
                       ),
                       MenuButton(
                         label: 'Voltage,\nCurrent,\nResistance',
-                        onPressed: () {},
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => OhmsLawPage(),
+                          ),
+                        ),
                         child: Image.asset('assets/vcr.png'),
                       ),
                     ],
