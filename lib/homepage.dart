@@ -94,7 +94,7 @@ class HomePage extends StatelessWidget {
                         onPressed: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const BandwidthPage(),
+                            builder: (context) => BandwidthPage(),
                           ),
                         ),
                         child: Image.asset('assets/opamp.png'),
@@ -104,7 +104,7 @@ class HomePage extends StatelessWidget {
                         onPressed: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const SlewRatePage(),
+                            builder: (context) => SlewRatePage(),
                           ),
                         ),
                         child: Image.asset('assets/slew.png'),

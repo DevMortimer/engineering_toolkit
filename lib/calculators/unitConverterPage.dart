@@ -293,7 +293,14 @@ class _UnitConverterPageState extends State<UnitConverterPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text("Enter a value and specify it's unit."),
+              Text(
+                "Enter a value and specify it's unit.",
+                style: TextStyle(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                ),
+              ),
               const SizedBox(height: 8),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 100),
@@ -348,7 +355,15 @@ class _UnitConverterPageState extends State<UnitConverterPage> {
                             .map(
                               (String value) => DropdownMenuItem(
                                 value: value,
-                                child: Text(value),
+                                child: Text(
+                                  value,
+                                  style: TextStyle(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
+                                  ),
+                                ),
                               ),
                             )
                             .toList(),
@@ -431,7 +446,15 @@ class _UnitConverterPageState extends State<UnitConverterPage> {
                             .map(
                               (String value) => DropdownMenuItem(
                                 value: value,
-                                child: Text(value),
+                                child: Text(
+                                  value,
+                                  style: TextStyle(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
+                                  ),
+                                ),
                               ),
                             )
                             .toList(),
@@ -452,8 +475,13 @@ class _UnitConverterPageState extends State<UnitConverterPage> {
 
               // The results
               const SizedBox(height: 32),
-              const Text(
+              Text(
                 "You'll see the converted values here (click to copy a value):",
+                style: TextStyle(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                ),
               ),
               const SizedBox(height: 8),
               Container(
@@ -469,7 +497,13 @@ class _UnitConverterPageState extends State<UnitConverterPage> {
                           itemBuilder: (context, index) => TextButton(
                             child: Text(
                               '${converted![index].name.toString().split('.').last}: ${converted![index].stringValue ?? converted![index].value}${converted![index].symbol ?? ''}',
-                              style: const TextStyle(fontSize: 16),
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                              ),
                             ),
                             onPressed: () async {
                               // Copy the text

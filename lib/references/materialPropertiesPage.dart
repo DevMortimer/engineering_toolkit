@@ -18,9 +18,15 @@ class MaterialPropertiesPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Carbon Steel
-              const Text(
+              Text(
                 'Carbon Steel',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                ),
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
@@ -28,19 +34,53 @@ class MaterialPropertiesPage extends StatelessWidget {
                 child: StickyHeadersTable(
                   columnsLength: carbonSteelHeader.length,
                   rowsLength: carbonSteelSideBar.length,
-                  columnsTitleBuilder: (i) => Text(carbonSteelHeader[i]),
-                  rowsTitleBuilder: (i) => Text(carbonSteelSideBar[i]),
-                  contentCellBuilder: (i, j) => Text(carbonSteel[j][i]),
+                  columnsTitleBuilder: (i) => Text(
+                    carbonSteelHeader[i],
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
+                  rowsTitleBuilder: (i) => Text(
+                    carbonSteelSideBar[i],
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
+                  contentCellBuilder: (i, j) => Text(
+                    carbonSteel[j][i],
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
                   showHorizontalScrollbar: false,
                   showVerticalScrollbar: false,
-                  legendCell: const Text('Material'),
+                  legendCell: Text(
+                    'Material',
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
                 ),
               ),
 
               // Alloy Steel
-              const Text(
+              Text(
                 'Alloy Steel',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                ),
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
@@ -48,19 +88,53 @@ class MaterialPropertiesPage extends StatelessWidget {
                 child: StickyHeadersTable(
                   columnsLength: alloySteelHeader.length,
                   rowsLength: alloySteelSideBar.length,
-                  columnsTitleBuilder: (i) => Text(alloySteelHeader[i]),
-                  rowsTitleBuilder: (i) => Text(alloySteelSideBar[i]),
-                  contentCellBuilder: (i, j) => Text(alloySteel[j][i]),
+                  columnsTitleBuilder: (i) => Text(
+                    alloySteelHeader[i],
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
+                  rowsTitleBuilder: (i) => Text(
+                    alloySteelSideBar[i],
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
+                  contentCellBuilder: (i, j) => Text(
+                    alloySteel[j][i],
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
                   showHorizontalScrollbar: false,
                   showVerticalScrollbar: false,
-                  legendCell: const Text('Material'),
+                  legendCell: Text(
+                    'Material',
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
                 ),
               ),
 
               // Stainless Steel
-              const Text(
+              Text(
                 'Stainless Steel',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                ),
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
@@ -68,19 +142,53 @@ class MaterialPropertiesPage extends StatelessWidget {
                 child: StickyHeadersTable(
                   columnsLength: stainlessSteelHeader.length,
                   rowsLength: stainlessSteelSideBar.length,
-                  columnsTitleBuilder: (i) => Text(stainlessSteelHeader[i]),
-                  rowsTitleBuilder: (i) => Text(stainlessSteelSideBar[i]),
-                  contentCellBuilder: (i, j) => Text(stainlessSteel[j][i]),
+                  columnsTitleBuilder: (i) => Text(
+                    stainlessSteelHeader[i],
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
+                  rowsTitleBuilder: (i) => Text(
+                    stainlessSteelSideBar[i],
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
+                  contentCellBuilder: (i, j) => Text(
+                    stainlessSteel[j][i],
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
                   showHorizontalScrollbar: false,
                   showVerticalScrollbar: false,
-                  legendCell: const Text('Material'),
+                  legendCell: Text(
+                    'Material',
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
                 ),
               ),
 
               // Cast Irons
-              const Text(
+              Text(
                 'Cast Iron',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                ),
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
@@ -88,19 +196,53 @@ class MaterialPropertiesPage extends StatelessWidget {
                 child: StickyHeadersTable(
                   columnsLength: castIronHeader.length,
                   rowsLength: castIronSideBar.length,
-                  columnsTitleBuilder: (i) => Text(castIronHeader[i]),
-                  rowsTitleBuilder: (i) => Text(castIronSideBar[i]),
-                  contentCellBuilder: (i, j) => Text(castIron[j][i]),
+                  columnsTitleBuilder: (i) => Text(
+                    castIronHeader[i],
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
+                  rowsTitleBuilder: (i) => Text(
+                    castIronSideBar[i],
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
+                  contentCellBuilder: (i, j) => Text(
+                    castIron[j][i],
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
                   showHorizontalScrollbar: false,
                   showVerticalScrollbar: false,
-                  legendCell: const Text('Material'),
+                  legendCell: Text(
+                    'Material',
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
                 ),
               ),
 
               // Aluminum Alloys
-              const Text(
+              Text(
                 'Aluminum Alloys',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                ),
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
@@ -108,19 +250,53 @@ class MaterialPropertiesPage extends StatelessWidget {
                 child: StickyHeadersTable(
                   columnsLength: aluminumAlloyHeader.length,
                   rowsLength: aluminumAlloySideBar.length,
-                  columnsTitleBuilder: (i) => Text(aluminumAlloyHeader[i]),
-                  rowsTitleBuilder: (i) => Text(aluminumAlloySideBar[i]),
-                  contentCellBuilder: (i, j) => Text(aluminumAlloy[j][i]),
+                  columnsTitleBuilder: (i) => Text(
+                    aluminumAlloyHeader[i],
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
+                  rowsTitleBuilder: (i) => Text(
+                    aluminumAlloySideBar[i],
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
+                  contentCellBuilder: (i, j) => Text(
+                    aluminumAlloy[j][i],
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
                   showHorizontalScrollbar: false,
                   showVerticalScrollbar: false,
-                  legendCell: const Text('Material'),
+                  legendCell: Text(
+                    'Material',
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
                 ),
               ),
 
               // Nickel Alloys
-              const Text(
+              Text(
                 'Nickel Alloys',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                ),
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
@@ -128,19 +304,53 @@ class MaterialPropertiesPage extends StatelessWidget {
                 child: StickyHeadersTable(
                   columnsLength: nickelAlloyHeader.length,
                   rowsLength: nickelAlloySideBar.length,
-                  columnsTitleBuilder: (i) => Text(nickelAlloyHeader[i]),
-                  rowsTitleBuilder: (i) => Text(nickelAlloySideBar[i]),
-                  contentCellBuilder: (i, j) => Text(nickelAlloy[j][i]),
+                  columnsTitleBuilder: (i) => Text(
+                    nickelAlloyHeader[i],
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
+                  rowsTitleBuilder: (i) => Text(
+                    nickelAlloySideBar[i],
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
+                  contentCellBuilder: (i, j) => Text(
+                    nickelAlloy[j][i],
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
                   showHorizontalScrollbar: false,
                   showVerticalScrollbar: false,
-                  legendCell: const Text('Material'),
+                  legendCell: Text(
+                    'Material',
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
                 ),
               ),
 
               // Copper Alloys
-              const Text(
+              Text(
                 'Copper Alloys',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                ),
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
@@ -148,19 +358,53 @@ class MaterialPropertiesPage extends StatelessWidget {
                 child: StickyHeadersTable(
                   columnsLength: copperAlloyHeader.length,
                   rowsLength: copperAlloySideBar.length,
-                  columnsTitleBuilder: (i) => Text(copperAlloyHeader[i]),
-                  rowsTitleBuilder: (i) => Text(copperAlloySideBar[i]),
-                  contentCellBuilder: (i, j) => Text(copperAlloy[j][i]),
+                  columnsTitleBuilder: (i) => Text(
+                    copperAlloyHeader[i],
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
+                  rowsTitleBuilder: (i) => Text(
+                    copperAlloySideBar[i],
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
+                  contentCellBuilder: (i, j) => Text(
+                    copperAlloy[j][i],
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
                   showHorizontalScrollbar: false,
                   showVerticalScrollbar: false,
-                  legendCell: const Text('Material'),
+                  legendCell: Text(
+                    'Material',
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
                 ),
               ),
 
               // Titanium Alloys
-              const Text(
+              Text(
                 'Titanium Alloys',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                ),
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
@@ -168,12 +412,40 @@ class MaterialPropertiesPage extends StatelessWidget {
                 child: StickyHeadersTable(
                   columnsLength: titaniumAlloyHeader.length,
                   rowsLength: titaniumAlloySideBar.length,
-                  columnsTitleBuilder: (i) => Text(titaniumAlloyHeader[i]),
-                  rowsTitleBuilder: (i) => Text(titaniumAlloySideBar[i]),
-                  contentCellBuilder: (i, j) => Text(titaniumAlloy[j][i]),
+                  columnsTitleBuilder: (i) => Text(
+                    titaniumAlloyHeader[i],
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
+                  rowsTitleBuilder: (i) => Text(
+                    titaniumAlloySideBar[i],
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
+                  contentCellBuilder: (i, j) => Text(
+                    titaniumAlloy[j][i],
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
                   showHorizontalScrollbar: false,
                   showVerticalScrollbar: false,
-                  legendCell: const Text('Material'),
+                  legendCell: Text(
+                    'Material',
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
                 ),
               ),
 

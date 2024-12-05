@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:units_converter/properties/si_prefixes.dart';
 
 enum BandSelection { four, five, six }
 
@@ -57,6 +58,8 @@ enum ToleranceColors {
   const ToleranceColors(this.value, this.color);
 }
 
+enum InputMethod { colorBands, manualInput }
+
 // Used by the ppm
 enum PPMColors {
   brown(100, Colors.brown),
@@ -85,14 +88,59 @@ class _ResistorPageState extends State<ResistorPage> {
 
   BandSelection numOfBands = BandSelection.four;
 
-  BandColors? firstBand;
-  BandColors? secondBand;
-  BandColors? thirdBand;
-  BandColors? fourthBand;
-  MultiplierColors? multiplier;
-  ToleranceColors? tolerance;
-  PPMColors? ppm;
-  TextEditingController resistanceValueController = TextEditingController();
+  BandColors? firstBand = BandColors.black;
+  BandColors? secondBand = BandColors.black;
+  BandColors? thirdBand = BandColors.black;
+  MultiplierColors? multiplier = MultiplierColors.black;
+  ToleranceColors? tolerance = ToleranceColors.brown;
+  PPMColors? ppm = PPMColors.brown;
+
+  double value = 0.0;
+
+  void calculateValue() {
+    // For 4 bands
+    if (numOfBands == BandSelection.four &&
+        firstBand != null &&
+        secondBand != null &&
+        multiplier != null) {
+      value = ((firstBand!.value * 10) + secondBand!.value) * multiplier!.value;
+    }
+
+    // For 5 bands
+    if (numOfBands == BandSelection.five &&
+        firstBand != null &&
+        secondBand != null &&
+        thirdBand != null &&
+        multiplier != null) {
+      value = ((firstBand!.value * 100) +
+              (secondBand!.value * 10) +
+              thirdBand!.value) *
+          multiplier!.value;
+    }
+
+    // For 6 bands
+    if (numOfBands == BandSelection.six &&
+        firstBand != null &&
+        secondBand != null &&
+        thirdBand != null &&
+        multiplier != null) {
+      value = ((firstBand!.value * 100) +
+              (secondBand!.value * 10) +
+              thirdBand!.value) *
+          multiplier!.value;
+    }
+
+    setState(() {});
+  }
+
+  String getSI() {
+    var prefix = SIPrefixes(significantFigures: 8, removeTrailingZeros: true);
+    var unit = SI_PREFIXES.base;
+    prefix.convert(unit, value);
+    var mega = prefix.getUnit(SI_PREFIXES.mega);
+    var kilo = prefix.getUnit(SI_PREFIXES.kilo);
+    return "SI Prefixed: ${kilo.stringValue} ${kilo.symbol} or ${mega.stringValue} ${mega.symbol}";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,121 +150,84 @@ class _ResistorPageState extends State<ResistorPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 14.5),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Center(
-              child: Text(
-                "Resistor Color Coding uses colored bands to quickly identify a resistors resistive value and its percentage of tolerance with the physical size of the resistor indicating its wattage rating.",
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Text(
+                  "Resistor Color Coding uses colored bands to quickly identify a resistors resistive value and its percentage of tolerance with the physical size of the resistor indicating its wattage rating.",
+                  style: TextStyle(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
+                  ),
+                ),
               ),
-            ),
-            const SizedBox(height: 16),
+              const SizedBox(height: 16),
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ElevatedButton(
-                  onPressed: numOfBands == BandSelection.four
-                      ? null
-                      : () {
-                          numOfBands = BandSelection.four;
-                          thirdBand = null;
-                          ppm = null;
-                          setState(() {});
-                        },
-                  child: const Text('4 Band'),
-                ),
-                ElevatedButton(
-                  onPressed: numOfBands == BandSelection.five
-                      ? null
-                      : () {
-                          numOfBands = BandSelection.five;
-                          thirdBand ??= BandColors.black;
-                          ppm = null;
-                          setState(() {});
-                        },
-                  child: const Text('5 Band'),
-                ),
-                ElevatedButton(
-                  onPressed: numOfBands == BandSelection.six
-                      ? null
-                      : () {
-                          numOfBands = BandSelection.six;
-                          ppm ??= PPMColors.brown;
-                          setState(() {});
-                        },
-                  child: const Text('6 Band'),
-                ),
-              ],
-            ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton(
+                    onPressed: numOfBands == BandSelection.four
+                        ? null
+                        : () {
+                            numOfBands = BandSelection.four;
+                            thirdBand = null;
+                            ppm = null;
+                            setState(() {});
+                          },
+                    child: const Text('4 Band'),
+                  ),
+                  ElevatedButton(
+                    onPressed: numOfBands == BandSelection.five
+                        ? null
+                        : () {
+                            numOfBands = BandSelection.five;
+                            thirdBand ??= BandColors.black;
+                            ppm = null;
+                            setState(() {});
+                          },
+                    child: const Text('5 Band'),
+                  ),
+                  ElevatedButton(
+                    onPressed: numOfBands == BandSelection.six
+                        ? null
+                        : () {
+                            numOfBands = BandSelection.six;
+                            ppm ??= PPMColors.brown;
+                            setState(() {});
+                          },
+                    child: const Text('6 Band'),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
 
-            // Parameters
-            Text('Resistor Parameters', style: title),
-            const SizedBox(height: 8),
-
-            //// 1st Band
-            Text('1st Band of Color', style: subtitle),
-            DropdownButton(
-              items: BandColors.values
-                  .map(
-                    (BandColors c) => DropdownMenuItem(
-                      value: c,
-                      child: Text(
-                        "${c.name} (${c.value})",
-                        style: TextStyle(
-                          backgroundColor: c.color,
-                          color: c == BandColors.white ||
-                                  c == BandColors.yellow ||
-                                  c == BandColors.orange ||
-                                  c == BandColors.green
-                              ? Colors.black
-                              : null,
-                        ),
-                      ),
-                    ),
-                  )
-                  .toList(),
-              value: firstBand ?? BandColors.black,
-              onChanged: (item) => setState(() {
-                firstBand = item;
-              }),
-            ),
-
-            //// 2nd Band
-            Text('2nd Band of Color', style: subtitle),
-            DropdownButton(
-              items: BandColors.values
-                  .map(
-                    (BandColors c) => DropdownMenuItem(
-                      value: c,
-                      child: Text(
-                        "${c.name} (${c.value})",
-                        style: TextStyle(
-                          backgroundColor: c.color,
-                          color: c == BandColors.white ||
-                                  c == BandColors.yellow ||
-                                  c == BandColors.orange ||
-                                  c == BandColors.green
-                              ? Colors.black
-                              : null,
-                        ),
-                      ),
-                    ),
-                  )
-                  .toList(),
-              value: secondBand ?? BandColors.black,
-              onChanged: (item) => setState(() {
-                secondBand = item;
-              }),
-            ),
-
-            //// 3rd Band
-            if (numOfBands == BandSelection.five ||
-                numOfBands == BandSelection.six)
+              // Parameters
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('3rd Band of Color', style: subtitle),
+                  Text(
+                    'Resistor Parameters',
+                    style: title.copyWith(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+
+                  //// 1st Band
+                  Text(
+                    '1st Band of Color',
+                    style: subtitle.copyWith(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
                   DropdownButton(
                     items: BandColors.values
                         .map(
@@ -231,125 +242,258 @@ class _ResistorPageState extends State<ResistorPage> {
                                         c == BandColors.orange ||
                                         c == BandColors.green
                                     ? Colors.black
-                                    : null,
+                                    : Colors.white,
                               ),
                             ),
                           ),
                         )
                         .toList(),
-                    value: thirdBand ?? BandColors.black,
+                    value: firstBand ?? BandColors.black,
                     onChanged: (item) => setState(() {
-                      thirdBand = item;
+                      firstBand = item;
+                      calculateValue();
                     }),
                   ),
-                ],
-              ),
 
-            //// Multiplier
-            Text('Multiplier', style: subtitle),
-            DropdownButton(
-              items: MultiplierColors.values
-                  .map(
-                    (MultiplierColors c) => DropdownMenuItem(
-                      value: c,
-                      child: Text(
-                        "${c.name} (${c.value})",
-                        style: TextStyle(
-                          backgroundColor: c.color,
-                          color: c == MultiplierColors.white ||
-                                  c == MultiplierColors.yellow ||
-                                  c == MultiplierColors.orange ||
-                                  c == MultiplierColors.green
-                              ? Colors.black
-                              : null,
-                        ),
-                      ),
+                  //// 2nd Band
+                  Text(
+                    '2nd Band of Color',
+                    style: subtitle.copyWith(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
                     ),
-                  )
-                  .toList(),
-              value: multiplier ?? MultiplierColors.black,
-              onChanged: (item) => setState(() {
-                multiplier = item;
-              }),
-            ),
-
-            //// Tolerance
-            Text('Tolerance', style: subtitle),
-            DropdownButton(
-              items: ToleranceColors.values
-                  .map(
-                    (ToleranceColors c) => DropdownMenuItem(
-                      value: c,
-                      child: Text(
-                        "${c.name} (${c.value})",
-                        style: TextStyle(
-                          backgroundColor: c.color,
-                          color:
-                              c == ToleranceColors.green ? Colors.black : null,
-                        ),
-                      ),
-                    ),
-                  )
-                  .toList(),
-              value: tolerance ?? ToleranceColors.brown,
-              onChanged: (item) => setState(() {
-                tolerance = item;
-              }),
-            ),
-
-            //// PPM
-            if (numOfBands == BandSelection.six)
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('PPM', style: subtitle),
+                  ),
                   DropdownButton(
-                    items: PPMColors.values
+                    items: BandColors.values
                         .map(
-                          (PPMColors c) => DropdownMenuItem(
+                          (BandColors c) => DropdownMenuItem(
                             value: c,
                             child: Text(
                               "${c.name} (${c.value})",
                               style: TextStyle(
                                 backgroundColor: c.color,
-                                color: c == PPMColors.orange ||
-                                        c == PPMColors.yellow
+                                color: c == BandColors.white ||
+                                        c == BandColors.yellow ||
+                                        c == BandColors.orange ||
+                                        c == BandColors.green
                                     ? Colors.black
-                                    : null,
+                                    : Colors.white,
                               ),
                             ),
                           ),
                         )
                         .toList(),
-                    value: ppm ?? PPMColors.brown,
+                    value: secondBand ?? BandColors.black,
                     onChanged: (item) => setState(() {
-                      ppm = item;
+                      secondBand = item;
+                      calculateValue();
                     }),
                   ),
+
+                  //// 3rd Band
+                  if (numOfBands == BandSelection.five ||
+                      numOfBands == BandSelection.six)
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '3rd Band of Color',
+                          style: subtitle.copyWith(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                          ),
+                        ),
+                        DropdownButton(
+                          items: BandColors.values
+                              .map(
+                                (BandColors c) => DropdownMenuItem(
+                                  value: c,
+                                  child: Text(
+                                    "${c.name} (${c.value})",
+                                    style: TextStyle(
+                                      backgroundColor: c.color,
+                                      color: c == BandColors.white ||
+                                              c == BandColors.yellow ||
+                                              c == BandColors.orange ||
+                                              c == BandColors.green
+                                          ? Colors.black
+                                          : Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                          value: thirdBand ?? BandColors.black,
+                          onChanged: (item) => setState(() {
+                            thirdBand = item;
+                            calculateValue();
+                          }),
+                        ),
+                      ],
+                    ),
+
+                  //// Multiplier
+                  Text(
+                    'Multiplier',
+                    style: subtitle.copyWith(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
+                  DropdownButton(
+                    items: MultiplierColors.values
+                        .map(
+                          (MultiplierColors c) => DropdownMenuItem(
+                            value: c,
+                            child: Text(
+                              "${c.name} (${c.value})",
+                              style: TextStyle(
+                                backgroundColor: c.color,
+                                color: c == MultiplierColors.white ||
+                                        c == MultiplierColors.yellow ||
+                                        c == MultiplierColors.orange ||
+                                        c == MultiplierColors.green
+                                    ? Colors.black
+                                    : Colors.white,
+                              ),
+                            ),
+                          ),
+                        )
+                        .toList(),
+                    value: multiplier ?? MultiplierColors.black,
+                    onChanged: (item) => setState(() {
+                      multiplier = item;
+                      calculateValue();
+                    }),
+                  ),
+
+                  //// Tolerance
+                  Text(
+                    'Tolerance',
+                    style: subtitle.copyWith(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
+                  DropdownButton(
+                    items: ToleranceColors.values
+                        .map(
+                          (ToleranceColors c) => DropdownMenuItem(
+                            value: c,
+                            child: Text(
+                              "${c.name} (${c.value})",
+                              style: TextStyle(
+                                backgroundColor: c.color,
+                                color: c == ToleranceColors.green
+                                    ? Colors.black
+                                    : Colors.white,
+                              ),
+                            ),
+                          ),
+                        )
+                        .toList(),
+                    value: tolerance ?? ToleranceColors.brown,
+                    onChanged: (item) => setState(() {
+                      tolerance = item;
+                      calculateValue();
+                    }),
+                  ),
+
+                  //// PPM
+                  if (numOfBands == BandSelection.six)
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'PPM',
+                          style: subtitle.copyWith(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                          ),
+                        ),
+                        DropdownButton(
+                          items: PPMColors.values
+                              .map(
+                                (PPMColors c) => DropdownMenuItem(
+                                  value: c,
+                                  child: Text(
+                                    "${c.name} (${c.value})",
+                                    style: TextStyle(
+                                      backgroundColor: c.color,
+                                      color: c == PPMColors.orange ||
+                                              c == PPMColors.yellow
+                                          ? Colors.black
+                                          : Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                          value: ppm ?? PPMColors.brown,
+                          onChanged: (item) => setState(() {
+                            ppm = item;
+                            calculateValue();
+                          }),
+                        ),
+                      ],
+                    ),
                 ],
               ),
 
-            //// Resistance Value
-            const SizedBox(height: 16),
-            SizedBox(
-              width: MediaQuery.of(context).size.width - 256,
-              height: 64,
-              child: TextField(
-                controller: resistanceValueController,
-                decoration: const InputDecoration(
-                  filled: true,
-                  hintText: "Resistance Value",
+              // Resistance Value
+              const SizedBox(height: 16),
+
+              Center(
+                child: Text(
+                  'Result:\n$value Ohms ±${tolerance?.value ?? 0.0}%',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
+                  ),
                 ),
-                keyboardType: const TextInputType.numberWithOptions(
-                    signed: true, decimal: true),
-                inputFormatters: [
-                  FilteringTextInputFormatter.singleLineFormatter
-                ],
-                textInputAction: TextInputAction.done,
-                onChanged: (text) {},
               ),
-            ),
-          ],
+              Center(
+                child: Text(
+                  getSI(),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
+                  ),
+                ),
+              ),
+              if (numOfBands == BandSelection.six)
+                Center(
+                  child: Text(
+                    'Tolerance: ${ppm!.value} ppm/K',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
+                ),
+
+              const SizedBox(height: 48),
+            ],
+          ),
         ),
       ),
     );
